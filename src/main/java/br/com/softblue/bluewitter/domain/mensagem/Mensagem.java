@@ -7,20 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import br.com.softblue.bluewitter.domain.usuario.Usuario;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "MENSAGEM")
 @SequenceGenerator(name = "ID_MESSAGE_SQ", sequenceName = "ID_MESSAGE_SQ", allocationSize = 1, initialValue = 1)
-public class Mensagem {
+public @Data class Mensagem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MESSAGE_SQ")
@@ -30,5 +27,8 @@ public class Mensagem {
 	private LocalDateTime dataHora;
 	
 	private String texto;
+	
+	@ManyToOne
+	private Usuario usuario;
 	
 }
