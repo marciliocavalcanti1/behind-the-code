@@ -1,6 +1,7 @@
 package br.com.softblue.bluewitter.domain.mensagem;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,16 @@ public @Data class Mensagem {
 	
 	private String texto;
 	
+	private int curtidas;
+	
 	@ManyToOne
 	private Usuario usuario;
 	
+	public long calcularTempoMinutos() {
+		return ChronoUnit.MINUTES.between(dataHora, LocalDateTime.now());
+	}
+	
+	public void curtir() {
+		curtidas++;
+	}
 }

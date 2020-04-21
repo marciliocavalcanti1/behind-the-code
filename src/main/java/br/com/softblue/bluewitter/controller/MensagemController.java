@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.softblue.bluewitter.domain.mensagem.Mensagem;
 import br.com.softblue.bluewitter.domain.mensagem.MensagemRepository;
@@ -44,6 +45,25 @@ public class MensagemController {
 			mensagemRepository.save(mensagem);
 		}
 		
-		return "";
+		return "redirect:/mensagem/listar";
+	}
+	
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		List<Mensagem> mensagens = mensagemRepository.findAll(Sort.by(Sort.Direction.DESC, "dataHora"));
+		model.addAttribute("mensagens", mensagens);
+		
+		return "list-message";
+	}
+	
+	@GetMapping(path = "/curtir")
+	public String curtir(
+			@RequestParam("msgId") Integer msgId) {
+		
+		Mensagem mensagem = mensagemRepository.findById(msgId).orElseThrow(null);
+		mensagem.curtir();
+		mensagemRepository.save(mensagem);
+		
+		return "redirect:/mensagem/listar";
 	}
 }
