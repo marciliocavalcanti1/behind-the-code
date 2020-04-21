@@ -28,7 +28,7 @@
 			</div>
 			<!-- Fim de postagem -->
 	
-			<input type="button" value="Cancelar" class="buttonCancelar" onclick="location.href='index.html';" />
+			<input type="button" value="Cancelar" class="buttonCancelar" th:onclick="'window.location.href=\'' + @{/mensagem/listar} + '\';'" />
 			<input type="submit" value="Criar" class="buttonCriar" />
 		</form>
 	</div>
