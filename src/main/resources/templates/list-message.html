@@ -19,7 +19,7 @@
 			<!-- Postagem -->
 			<div class="divPostagem" th:each="mensagem : ${mensagens}">
 				<div class="divPostagemImagemUsuario">
-					<img th:src="@{/images/usuario_} + ${mensagem.usuario.id} + '.png'" class="imagemUsuario">
+					<img th:src="${mensagem.usuario.avatar}" class="imagemUsuario">
 				</div>
 				<div class="divPostagemMensagem">
 					<p class="pTextoPostagem">
@@ -35,7 +35,8 @@
 			</div>
 			<!-- Fim de postagem -->
 			
-			<input type="button" value="Criar" class="buttonCriar" th:onclick="'window.location.href=\'' + @{/mensagem/nova} + '\';'" />
+			<input type="button" value="Criar Mensagem" class="buttonCriar" th:onclick="'window.location.href=\'' + @{/mensagem/nova} + '\';'" />
+			<input type="button" value="Criar Usuário" class="buttonCriar" th:onclick="'window.location.href=\'' + @{/usuario/novo} + '\';'" />
 			
 		</div>
 		<!-- Rodapé - Início -->
