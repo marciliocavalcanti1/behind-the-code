@@ -12,7 +12,8 @@ import lombok.Data;
 @Entity
 @Table(name = "USUARIO")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public @Data class Usuario {
+@Data
+public class Usuario {
 	
 	@Id
 	@JsonProperty("login")
@@ -27,5 +28,4 @@ public @Data class Usuario {
 	public String getFormattedId() {
 		return "@" + id;
 	}
-
 }
