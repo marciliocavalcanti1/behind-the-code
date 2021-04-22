@@ -1,5 +1,6 @@
 # Bluwitter
-Aplicação que simula a timeline do Twitter, permitindo publicar posts e interagir.  
+Aplicação que simula a timeline do Twitter, permitindo publicar posts e interagir. 
+Integração com a API do Github, permitindo que o usuário crie uma conta a partir do Login do Github.
 
 ## Tecnologias utilizadas no back-end:
 - Java  
