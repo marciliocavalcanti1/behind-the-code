@@ -11,31 +11,38 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import br.com.softblue.bluewitter.domain.usuario.Usuario;
 import br.com.softblue.bluewitter.domain.usuario.UsuarioRepository;
-import br.com.softblue.bluewitter.utils.ApiGitHub;
+import br.com.softblue.bluewitter.utils.ApiGitHubService;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@GetMapping("/novo")
 	public String nova(Model model) {
 		Usuario usuario = new Usuario();
 		model.addAttribute("usuario", usuario);
-		
+
 		return "create-user";
 	}
-	
+
 	@PostMapping(path = "/criar")
 	public String criar(Usuario loginUserGitHub) throws JsonProcessingException {
-		
-		ApiGitHub call = new ApiGitHub();
-		
+
 		try {
+
+			Usuario user = ApiGitHubService.request(loginUserGitHub.getId());
 			
-			Usuario user = call.request(loginUserGitHub);
+			Boolean userExist = usuarioRepository.existsById(user.getId());
+
+			if(userExist) {
+				
+				System.err.println("Usuário já cadastrado na base de dados!");
+				
+				return "redirect:/mensagem/listar";
+			}
 			
 			if(user != null) {
 				
@@ -47,13 +54,15 @@ public class UsuarioController {
 				
 				return "redirect:/mensagem/listar";
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		System.err.println("Usuário não cadastrado no Github!");
+
 		return "redirect:/usuario/novo";
 	}
-	
+
 }
